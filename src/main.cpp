@@ -2,9 +2,9 @@
 
 #include "Logger.h"
 
-int main(int argc, char ** argv)
+int main()
 {
-
+    Logger::instance().log("Hello");
 
     return 0;
 }
