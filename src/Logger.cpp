@@ -13,7 +13,7 @@ std::string to_string(const Logger::Level level)
     if (it == level_map.end()) {
         return "NONE";
     }
-    return it->second;
+    return Logger::l.to_string() + it->second + Logger::def.to_string();
 }
 
 } // anonymous namespace

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Modifier.h"
+
 #include <iomanip>
 #include <iostream>
 #include <map>
@@ -19,6 +21,9 @@ protected:
 
 public: // static
     static constexpr auto endl = "\n";
+    static constexpr auto def = Colour::Modifier(Colour::DEFAULT);
+    static constexpr auto t = Colour::Modifier(Colour::WHITE);
+    static constexpr auto l = Colour::Modifier(Colour::CYAN);
 
     static Logger & instance()
     {
@@ -44,7 +49,7 @@ public: // static
         std::stringstream ss;
         ss << std::put_time(localtime(&tt), "%F %T");
         ss << '.' << std::setfill('0') << std::setw(3) << ms.count();
-        return ss.str();
+        return t.to_string() + ss.str() + def.to_string();
     }
 
     static std::string thread_id()
@@ -86,14 +91,14 @@ private:
     }
 
     template <class T, class... Args>
-    void print(std::ostream & os, T && first, const Args &... args)
+    void print(std::ostream & os, T && first, const Args &... args) const
     {
         os << first;
         print(os, args...);
     }
 
     template <class T>
-    void print(std::ostream & os, const T & value)
+    void print(std::ostream & os, const T & value) const
     {
         os << value;
     }
@@ -102,6 +107,4 @@ private:
     std::mutex m_mutex;
 
     std::map<std::string /* thread_id */, Level /* level */> m_thread_levels;
-
-    Level m_level = Level::DEBUG;
 };
