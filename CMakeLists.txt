@@ -73,3 +73,4 @@ setup_warnings(logger)
 
 # linking Main against the library
 target_link_libraries(logger logger_lib)
+target_link_libraries(${PROJECT_NAME} pthread)
